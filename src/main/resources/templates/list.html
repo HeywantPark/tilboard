@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>id</th>
+        <th>title</th>
+        <th>title(||쓰지 않은 경우)</th>
+        <th>writer</th>
+        <th>date</th>
+    </tr>
+    <tr th:each="board: ${boardList}">
+        <td th:text="${board.id}"></td>
+        <td><a th:href="@{|/board/${board.id}|}" th:text="${board.title}"></a></td>
+        <td><a th:href="@{/board/${board.id}}" th:text="${board.title}"></a></td>
+        <td th:text="${board.writer}"></td>
+        <td th:text="*{#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+</table>
+</body>
+</html>
