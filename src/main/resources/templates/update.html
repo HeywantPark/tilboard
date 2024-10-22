@@ -64,6 +64,7 @@
 <body>
 
 <form action="/board/update" method="post" name="updateForm">
+    <input type="hidden" name="id" th:value="${boardUpdate.id}">
     <label for="writer">작성자</label>
     <input type="text" id="writer" name="writer" th:value="${boardUpdate.writer}" readonly>
 

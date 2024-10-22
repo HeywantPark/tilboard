@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding-top: 50px;
+            flex-direction: column;
+        }
+
+        table {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            max-width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .main-title {
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #1a73e8;
+        }
+
+        .pagination a:hover {
+            background-color: #f4f4f4;
+        }
+
+        .pagination span {
+            margin: 0 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>날짜</th>
+    </tr>
+    <tr th:each="board: ${boardList}">
+        <td th:text="${board.id}"></td>
+        <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.title}" class="main-title"></a></td>
+        <td th:text="${board.writer}"></td>
+        <td th:text="*{#temporals.format(board.createdAt, 'YY-MM-dd HH:mm')}"></td>
+    </tr>
+</table>
+
+<div class="pagination">
+    <!-- 첫번째 페이지로 이동 -->
+    <a th:href="@{/board/paging(page=1)}">&laquo;</a>
+    <!-- 이전 링크 활성화 비활성화 -->
+    <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">&lt;</a>
+
+    <!-- 페이지 번호 링크 -->
+    <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+        <!-- 현재 페이지는 링크 없이 숫자만 표시 -->
+        <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
+        <!-- 다른 페이지 번호는 링크로 표시 -->
+        <span th:unless="${page == boardList.number + 1}">
+            <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+        </span>
+    </span>
+
+    <!-- 다음 링크 활성화 비활성화 -->
+    <a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">&gt;</a>
+    <!-- 마지막 페이지로 이동 -->
+    <a th:href="@{/board/paging(page=${boardList.totalPages})}">&raquo;</a>
+</div>
+
+</body>
+</html>
