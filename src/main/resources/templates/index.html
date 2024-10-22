@@ -41,15 +41,11 @@
 <body>
 <h1>Today I Learned</h1>
 <button onclick="saveReq()">글작성</button>
-<button onclick="listReq()">글목록</button>
-<button onclick="pagingReq()">페이징목록</button>
+<button onclick="pagingReq()">글목록</button>
 
 <script>
     const saveReq = () => {
         location.href = "/board/save";
-    }
-    const listReq = () => {
-        location.href = "/board/";
     }
     const pagingReq = () => {
         location.href = "/board/paging";

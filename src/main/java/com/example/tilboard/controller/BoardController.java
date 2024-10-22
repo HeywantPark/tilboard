@@ -28,7 +28,7 @@ public class BoardController {
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
         System.out.println("boardDTO :" + boardDTO);
         boardService.save(boardDTO);
-        return "index";
+        return "paging";
     }
     @GetMapping("/")
     public String findAll(Model model) {

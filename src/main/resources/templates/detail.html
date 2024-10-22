@@ -95,6 +95,10 @@
             <th>date</th>
             <td th:text="${board.createdAt}"></td>
         </tr>
+        <tr th:if="${board.fileAttached == 1}">
+            <th>image</th>
+            <td><img th:src="@{|/upload/${board.storedFileName}|}" alt=""></td>
+        </tr>
     </table>
     <div class="content" id="content"></div>
     <div class="button-container">

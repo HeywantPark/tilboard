@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- Font Awesome CSS 추가 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,13 +19,33 @@
             flex-direction: column;
         }
 
+        .container {
+            width: 800px;
+            max-width: 100%;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 8px 16px;
+            background-color: #1a73e8;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .home-button:hover {
+            background-color: #155abc;
+        }
+
         table {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 800px;
-            max-width: 100%;
+            width: 100%;
             border-collapse: collapse;
         }
 
@@ -79,45 +102,53 @@
             border-radius: 5px;
             font-weight: bold;
         }
+
     </style>
 </head>
 <body>
 
-<table>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>날짜</th>
-    </tr>
-    <tr th:each="board: ${boardList}">
-        <td th:text="${board.id}"></td>
-        <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.title}" class="main-title"></a></td>
-        <td th:text="${board.writer}"></td>
-        <td th:text="*{#temporals.format(board.createdAt, 'YY-MM-dd HH:mm')}"></td>
-    </tr>
-</table>
+<div class="container">
+    <!-- 홈 버튼을 집 모양 아이콘으로 변경 -->
+    <a href="/" class="home-button">
+        <i class="fas fa-home"></i>
+    </a>
 
-<div class="pagination">
-    <!-- 첫번째 페이지로 이동 -->
-    <a th:href="@{/board/paging(page=1)}">&laquo;</a>
-    <!-- 이전 링크 활성화 비활성화 -->
-    <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">&lt;</a>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>날짜</th>
+        </tr>
+        <tr th:each="board: ${boardList}">
+            <td th:text="${board.id}"></td>
+            <td><a th:href="@{|/board/${board.id}|(page=${boardList.number + 1})}" th:text="${board.title}" class="main-title"></a></td>
+            <td th:text="${board.writer}"></td>
+            <td th:text="*{#temporals.format(board.createdAt, 'YY-MM-dd HH:mm')}"></td>
+        </tr>
+    </table>
 
-    <!-- 페이지 번호 링크 -->
-    <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
-        <!-- 현재 페이지는 링크 없이 숫자만 표시 -->
-        <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
-        <!-- 다른 페이지 번호는 링크로 표시 -->
-        <span th:unless="${page == boardList.number + 1}">
-            <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+    <div class="pagination">
+        <!-- 첫번째 페이지로 이동 -->
+        <a th:href="@{/board/paging(page=1)}">&laquo;</a>
+        <!-- 이전 링크 활성화 비활성화 -->
+        <a th:href="${boardList.first} ? '#' : @{/board/paging(page=${boardList.number})}">&lt;</a>
+
+        <!-- 페이지 번호 링크 -->
+        <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
+            <!-- 현재 페이지는 링크 없이 숫자만 표시 -->
+            <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
+            <!-- 다른 페이지 번호는 링크로 표시 -->
+            <span th:unless="${page == boardList.number + 1}">
+                <a th:href="@{/board/paging(page=${page})}" th:text="${page}"></a>
+            </span>
         </span>
-    </span>
 
-    <!-- 다음 링크 활성화 비활성화 -->
-    <a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">&gt;</a>
-    <!-- 마지막 페이지로 이동 -->
-    <a th:href="@{/board/paging(page=${boardList.totalPages})}">&raquo;</a>
+        <!-- 다음 링크 활성화 비활성화 -->
+        <a th:href="${boardList.last} ? '#' : @{/board/paging(page=${boardList.number + 2})}">&gt;</a>
+        <!-- 마지막 페이지로 이동 -->
+        <a th:href="@{/board/paging(page=${boardList.totalPages})}">&raquo;</a>
+    </div>
 </div>
 
 </body>
