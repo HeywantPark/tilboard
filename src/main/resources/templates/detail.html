@@ -1,53 +1,125 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>detail</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+            width: 100px;
+        }
+        td {
+            background-color: #fff;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .content {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0b5ba1;
+        }
+    </style>
 </head>
 <body>
-<table>
-    <tr>
-        <th>id</th>
-        <td th:text="${board.id}"></td>
-    </tr>
-    <tr>
-        <th>title</th>
-        <td th:text="${board.title}"></td>
-    </tr>
-    <tr>
-        <th>writer</th>
-        <td th:text="${board.writer}"></td>
-    </tr>
-    <tr>
-        <th>date</th>
-        <td th:text="${board.createdAt}"></td>
-    </tr>
-    <tr>
-        <th>contents</th>
-        <td th:text="${board.content}"></td>
-    </tr>
-</table>
-<button onclick="listReq()">목록</button>
-<button onclick="updateReq()">수정</button>
-<button onclick="deleteReq()">삭제</button>
+<div class="container">
+    <table>
+        <tr>
+            <th>id</th>
+            <td th:text="${board.id}"></td>
+        </tr>
+        <tr>
+            <th>title</th>
+            <td th:text="${board.title}"></td>
+        </tr>
+        <tr>
+            <th>writer</th>
+            <td th:text="${board.writer}"></td>
+        </tr>
+        <tr>
+            <th>date</th>
+            <td th:text="${board.createdAt}"></td>
+        </tr>
+    </table>
+    <div class="content" id="content"></div>
+    <div class="button-container">
+        <button type="button" onclick="listReq()">목록</button>
+        <button type="button" onclick="updateReq()">수정</button>
+        <button type="button" onclick="deleteReq()">삭제</button>
+    </div>
+</div>
 
-</body>
 <script th:inline="javascript">
+    const content = [[${board.content}]];
+    document.getElementById('content').innerHTML = marked.parse(content);
 
     const listReq = () => {
-        console.log("목록 요청");
         const page = [[${page}]];
         location.href = "/board/paging?page="+page;
     }
     const updateReq = () => {
-        console.log("수정 요청");
         const id = [[${board.id}]];
         location.href = "/board/update/" + id;
     }
     const deleteReq = () => {
-        console.log("삭제 요청");
         const id = [[${board.id}]];
         location.href = "/board/delete/" + id;
     }
 </script>
+</body>
 </html>

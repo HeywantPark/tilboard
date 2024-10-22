@@ -3,17 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #1a73e8; /* 파란색 텍스트 */
+            margin-bottom: 40px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            background-color: #1a73e8; /* 파란색 배경 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0b5ba1; /* 버튼 hover 시 진한 파란색 */
+        }
+    </style>
 </head>
 <body>
+<h1>Today I Learned</h1>
 <button onclick="saveReq()">글작성</button>
 <button onclick="listReq()">글목록</button>
 <button onclick="pagingReq()">페이징목록</button>
-</body>
-<script>
-    //  function saveReq() {
-    //
-    //  }
 
+<script>
     const saveReq = () => {
         location.href = "/board/save";
     }
@@ -23,7 +54,6 @@
     const pagingReq = () => {
         location.href = "/board/paging";
     }
-
-
 </script>
+</body>
 </html>

@@ -23,10 +23,10 @@ public class BoardEntity extends BaseEntity {
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    public static BoardEntity tosaveEntity(BoardDTO boardDTO) {
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
 
         boardEntity.setWriter(boardDTO.getWriter());

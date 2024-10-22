@@ -21,7 +21,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public void save(BoardDTO boardDTO) {
-        BoardEntity boardEntity = BoardEntity.tosaveEntity(boardDTO);
+        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
         boardRepository.save(boardEntity);
     }
 

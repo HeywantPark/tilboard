@@ -3,16 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>save</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding-top: 50px;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], textarea, input[type="file"] {
+            width: 98%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0b5ba1;
+        }
+    </style>
 </head>
 <body>
 
 <form action="/board/save" method="post" enctype="multipart/form-data">
-    writer: <input type="text" name="writer"> <br>
-    pass: <input type="text" name="boardPass"> <br>
-    title: <input type="text" name="title"> <br>
-    contents: <textarea name="content" cols="30" rows="10"></textarea> <br>
-    file: <input type="file" name="boardFile"> <br>
+    <h1>글 작성</h1>
+    <label for="writer">작성자</label>
+    <input type="text" id="writer" name="writer">
+
+    <label for="boardPass">비밀번호</label>
+    <input type="text" id="boardPass" name="boardPass">
+
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title">
+
+    <label for="content">내용</label>
+    <textarea id="content" name="content"></textarea>
+
+    <label for="boardFile">파일 업로드</label>
+    <input type="file" id="boardFile" name="boardFile">
+
     <input type="submit" value="글작성">
 </form>
+
 </body>
 </html>

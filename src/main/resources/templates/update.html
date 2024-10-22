@@ -1,18 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>update</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding-top: 50px;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-sizing: border-box;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], textarea {
+            width: 98%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        input[type="button"] {
+            padding: 10px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0b5ba1;
+        }
+    </style>
 </head>
 <body>
+
 <form action="/board/update" method="post" name="updateForm">
-    <input type="hidden" name="id" th:value="${boardUpdate.id}">
-    writer: <input type="text" name="writer" th:value="${boardUpdate.writer}" readonly> <br>
-    pass: <input type="text" name="boardPass" id="boardPass"> <br>
-    title: <input type="text" name="title" th:value="${boardUpdate.title}"> <br>
-    contents: <textarea name="content" cols="30" rows="10" th:text="${boardUpdate.content}"></textarea> <br>
+    <label for="writer">작성자</label>
+    <input type="text" id="writer" name="writer" th:value="${boardUpdate.writer}" readonly>
+
+    <label for="boardPass">비밀번호</label>
+    <input type="text" id="boardPass" name="boardPass">
+
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title" th:value="${boardUpdate.title}">
+
+    <label for="content">내용</label>
+    <textarea id="content" name="content" th:text="${boardUpdate.content}"></textarea>
+
     <input type="button" value="글수정" onclick="boardUpdate()">
 </form>
+
 <script th:inline="javascript">
     const boardUpdate = () => {
         const pass = [[${boardUpdate.boardPass}]];
@@ -24,4 +90,6 @@
         }
     }
 </script>
+
 </body>
+</html>
