@@ -5,6 +5,7 @@ import com.example.tilboard.entity.BoardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,10 @@ public class BoardDTO {
     private String writer;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private MultipartFile boardFile; //save.html -> Controller 담는 용도
+    private String originalFileName; // 원본 파일 이름
+    private String storedFileName; // 서버 저장용 이름
+    private int fileAttached; // 파일 첨부 여부
 
     public BoardDTO(Long id, String writer, String title, LocalDateTime createdAt) {
         this.id = id;
